@@ -1,0 +1,27 @@
+﻿@using Horeca.DataBaseLibrary.Models
+@model dynamic
+@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+}
+<div class="row">
+    <div class="col-12 col-lg-12">
+        <div class="card">
+            <div class="card-header">
+                <h5 class="card-title mb-0">New Product</h5>
+            </div>
+            <form asp-action="CreateProductFromDepartment">
+                <div class="card-body">
+                    <div>Product name</div>
+                    <input class="form-control" type="text" id="Product" name="Product" />
+                    <div>Price</div>
+                    <input class="form-control" type="text" id="Price" name="Price" />
+
+                    <input class="form-control" type="hidden" id="Id_Department" name="Id_Department" readonly value="@Model.Department.Id" />
+                </div>
+                <input type="submit" value="Add" class="btn btn-pill btn-primary btnAdd" />
+            </form>
+        </div>
+    </div>
+</div>

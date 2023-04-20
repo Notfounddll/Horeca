@@ -1,0 +1,39 @@
+﻿@model Horeca.DataBaseLibrary.Models.AuthentificationModel
+@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+}
+<body class="theme-blue">
+    <div class="splash active">
+        <div class="splash-icon"></div>
+    </div>
+
+    <main class="main h-100 w-100">
+        <div class="container h-100">
+            <div class="row h-100">
+                <div class="col-sm-10 col-md-8 col-lg-6 mx-auto d-table h-100">
+                    <div class="d-table-cell align-middle">
+
+
+                        <div class="card">
+                            <div class="card-body">
+                                <div class="m-sm-4">
+
+                                    <form asp-action="Logout">
+                                        <div>Do you want to log out?</div>
+                                        <input class="form-control" type="text" id="@Model.Id" name="@Model.Name" value="@Model.Name" readonly />
+                                        <div class="text-center mt-3">
+                                            <button type="submit" class="btn btn-lg btn-primary">Log out</button>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+</body>

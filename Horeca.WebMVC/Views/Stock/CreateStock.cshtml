@@ -1,0 +1,32 @@
+﻿@using Horeca.DataBaseLibrary.Models
+@model dynamic
+@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+}
+<div class="row">
+    <div class="col-12 col-lg-12">
+        <div class="card">
+            <div class="card-header">
+                <h5 class="card-title mb-0">New stock item</h5>
+            </div>
+            <form asp-action="CreateStock">
+                <div class="card-body">
+                    <div>Item name</div>
+                    <input class="form-control" type="text" id="Name" name="Name" />
+                    <div>Amount</div>
+                    <input class="form-control" type="text" id="Amount" name="Amount" />
+                    <div>Select location</div>
+                    <select class="form-control" id="Id_Location" name="Id_Location">
+                        @foreach (var item in Model.Location)
+                        {
+                            <option value="@item.Id">@item.Location</option>
+                        }
+                    </select>
+                </div>
+                <input type="submit" value="Add" class="btn btn-pill btn-primary btnAdd" />
+            </form>
+        </div>
+    </div>
+</div>

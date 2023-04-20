@@ -1,0 +1,30 @@
+﻿@model Horeca.DataBaseLibrary.Models.StockModel
+@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+}
+<div class="row">
+    <div class="col-12 col-lg-12">
+        <div class="card">
+            <div class="card-header">
+                <h5 class="card-title mb-0">Edit stock Name and Amount</h5>
+            </div>
+            <form asp-action="EditStock">
+                <DataAnnotationsValidator />
+                <ValidationSummary />
+                <div class="card-body">
+                    <div>New name</div>
+                    @Html.TextBoxFor(m => m.Name, new { @class = "form-control", @type = "text"})
+                    @Html.ValidationMessage("Name", "", new { @class = "text-danger" })
+                    <div>New amount</div>
+                    @Html.TextBoxFor(m => m.Amount, new { @class = "form-control", @type = "text"})
+                    @Html.ValidationMessage("Amount", "", new { @class = "text-danger" })
+                    @Html.TextBoxFor(m => m.Id_Location, new { @class = "form-control", @type = "text", @readonly = true, @style = "display: none;"})  
+                    @Html.TextBoxFor(m => m.Id, new { @class = "form-control", @type = "text", @readonly = true, @style = "display: none;"})
+                </div>
+                <input type="submit" value="Edit" class="btn btn-danger" />
+            </form>
+        </div>
+    </div>
+</div>
