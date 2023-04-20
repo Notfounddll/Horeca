@@ -1,49 +1,117 @@
-﻿<!DOCTYPE html>
+﻿@*@using System.Security.Claims
+@using Microsoft.AspNetCore.Http
+
+@inject IHttpContextAccessor httpContextAccessor
+@{
+    string Name = httpContextAccessor.HttpContext.User.FindFirst(ClaimTypes.Name).Value;
+    string Rights = httpContextAccessor.HttpContext.User.FindFirst(ClaimTypes.Role).Value;
+}*@
+
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>@ViewData["Title"] - Horeca.WebMVC</title>
+    <title>@ViewData["Title"] - HorecaApp.WebMVC</title>
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
-    <link rel="stylesheet" href="~/Horeca.WebMVC.styles.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/HorecaApp.WebMVC.styles.css" asp-append-version="true" />
+    <link href="~/css/classic.css" rel="stylesheet" />
+    <link href="~/css/jquery-ui.min.css" rel="stylesheet" />
+    <link href="~/css/site.css" rel="stylesheet" />
+    <script src="~/js/jquery.js"></script>
+    <script src="~/js/jquery-ui.min.js"></script>
+    <script src="~/js/settings.js"></script>
+    <script src="~/js/app.js"></script>
 </head>
 <body>
-    <header>
-        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
-            <div class="container-fluid">
-                <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">Horeca.WebMVC</a>
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
-                        aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-                <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
-                    <ul class="navbar-nav flex-grow-1">
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
-                        </li>
-                    </ul>
+    <div class="splash active">
+        <div class="splash-icon"></div>
+    </div>
+
+    <div class="wrapper">
+        <nav id="sidebar" class="sidebar">
+            <div class="sidebar-content">
+                <div class="sidebar-user">
+                    <div class="font-weight-bold">Welcome,</div>
+                    @*<div class="font-weight-bold">@Name </div>*@
+
+                </div>
+
+                <ul class="sidebar-nav">
+                    @*@if (Rights == "Level2")
+                    {*@
+                    <li class="sidebar-header">
+                        Administration
+                    </li>
+                    <li class="sidebar-item">
+                        <a class="nav-link text-dark" asp-controller="Location" asp-action="DisplayLocations"><i class="align-middle mr-2 fas fa-fw fa-folder"></i>Stocks</a>
+                        <a class="nav-link text-dark" asp-controller="Department" asp-action="CreateProduct"><i class="align-middle mr-2 fas fa-fw fa-folder"></i>Add Product</a>
+
+                    </li>
+                    @*}*@
+
+                    <li class="sidebar-header">
+                        Create Employee Interface
+                    </li>
+                    <li class="sidebar-item">
+                        <a class="nav-link text-dark" asp-controller="Department" asp-action="DisplayLocationForDepartments"><i class="align-middle mr-2 fas fa-fw fa-folder"></i>Departments</a>
+                        <a class="nav-link text-dark" asp-controller="Authentification" asp-action="ViewUsers"><i class="align-middle mr-2 fas fa-fw fa-folder"></i>Create Employee User</a>
+                        <a class="nav-link text-dark" asp-controller="Recipe" asp-action="ViewAllProducts"><i class="align-middle mr-2 fas fa-fw fa-folder"></i>Create Recipe</a>
+                        <a class="nav-link text-dark" asp-controller="Recipe" asp-action="AddRecipe"><i class="align-middle mr-2 fas fa-fw fa-folder"></i>Add Recipe</a>
+                    </li>
+                    <li class="sidebar-header">
+                        Reports
+                    </li>
+
+                </ul>
+                <div>
+                    <a asp-controller="Authentification" asp-action="Logout">Logout</a>
                 </div>
             </div>
         </nav>
-    </header>
-    <div class="container">
-        <main role="main" class="pb-3">
-            @RenderBody()
-        </main>
-    </div>
+        <div class="main">
+            <nav class="navbar navbar-expand navbar-theme">
+                <a class="sidebar-toggle d-flex mr-2">
+                    <i class="hamburger align-self-center"></i>
+                </a>
+            </nav>
 
-    <footer class="border-top footer text-muted">
-        <div class="container">
-            &copy; 2023 - Horeca.WebMVC - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+            <main class="content">
+                <div class="container-fluid">
+                    @RenderBody()
+                </div>
+            </main>
+            <footer class="footer">
+                <div class="container-fluid">
+                    <div class="row text-muted">
+                        <div class="col-8 text-left">
+                            <ul class="list-inline">
+                                <li class="list-inline-item">
+                                    <a class="text-muted" href="#">Support</a>
+                                </li>
+                                <li class="list-inline-item">
+                                    <a class="text-muted" href="#">Privacy</a>
+                                </li>
+                                <li class="list-inline-item">
+                                    <a class="text-muted" href="#">Terms of Service</a>
+                                </li>
+                                <li class="list-inline-item">
+                                    <a class="text-muted" href="#">Contact</a>
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="col-4 text-right">
+                            <p class="mb-0">
+                                &copy; 2019 - <a href="dashboard.html" class="text-muted">Spark</a>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </footer>
         </div>
-    </footer>
-    <script src="~/lib/jquery/dist/jquery.min.js"></script>
-    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="~/js/site.js" asp-append-version="true"></script>
+
+    </div>
     @await RenderSectionAsync("Scripts", required: false)
 </body>
 </html>
