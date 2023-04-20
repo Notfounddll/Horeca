@@ -1,4 +1,5 @@
 ﻿using Horeca.DataBaseLibrary.Models;
+using Horeca.DataBaseLibrary.Models.CustomModels;
 using System;
 using System.Collections.Generic;
 using System.Linq;

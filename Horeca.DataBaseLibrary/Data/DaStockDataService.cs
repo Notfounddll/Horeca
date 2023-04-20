@@ -1,4 +1,5 @@
-﻿using Horeca.DataBaseLibrary.DataAcces;
+﻿using Horeca.DataBaseLibrary.Data.Interfaces;
+using Horeca.DataBaseLibrary.DataAcces;
 using Horeca.DataBaseLibrary.Models;
 using System;
 using System.Collections.Generic;
@@ -8,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace Horeca.DataBaseLibrary.Data
 {
-    public class DaStockDataService
+    public class DaStockDataService : IDaStockDataService
     {
         private readonly ISqlDataAcces _dataAccess;
         public DaStockDataService(ISqlDataAcces dataAccess)

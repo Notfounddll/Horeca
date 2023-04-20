@@ -1,3 +1,8 @@
+using Horeca.DataBaseLibrary.Data.Interfaces;
+using Horeca.DataBaseLibrary.Data;
+using Horeca.DataBaseLibrary.DataAcces;
+using Microsoft.AspNetCore.Authentication.Cookies;
+
 namespace Horeca.WebMVC
 {
     public class Program
@@ -8,6 +13,20 @@ namespace Horeca.WebMVC
 
             // Add services to the container.
             builder.Services.AddControllersWithViews();
+            builder.Services.AddTransient<ISqlDataAcces, SqlDataAcces>();
+            builder.Services.AddTransient<IDaLocationDataService, DaLocationDataService>();
+            builder.Services.AddTransient<IDaProductDataService, DaProductDataService>();
+            builder.Services.AddTransient<IDaStockDataService, DaStockDataService>();
+            builder.Services.AddTransient<IDaDepartmentDataService, DaDepartmentDataService>();
+            builder.Services.AddTransient<IDaAuthentificationDataService, DaAuthentificationDataService>();
+            builder.Services.AddTransient<IDaRecipeDataService, DaRecipeDataService>();
+            builder.Services.AddHttpContextAccessor();
+            builder.Services.Configure<CookiePolicyOptions>(options =>
+            {
+                options.CheckConsentNeeded = context => true;
+                options.MinimumSameSitePolicy = SameSiteMode.None;
+            });
+            builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme).AddCookie(x => x.LoginPath = "/Authentification/Login");
 
             var app = builder.Build();
 
@@ -19,11 +38,14 @@ namespace Horeca.WebMVC
                 app.UseHsts();
             }
 
+            app.UseCookiePolicy();
+
             app.UseHttpsRedirection();
             app.UseStaticFiles();
 
             app.UseRouting();
 
+            app.UseAuthentication();
             app.UseAuthorization();
 
             app.MapControllerRoute(

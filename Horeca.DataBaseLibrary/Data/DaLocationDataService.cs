@@ -1,5 +1,7 @@
-﻿using Horeca.DataBaseLibrary.DataAcces;
+﻿using Horeca.DataBaseLibrary.Data.Interfaces;
+using Horeca.DataBaseLibrary.DataAcces;
 using Horeca.DataBaseLibrary.Models;
+using Horeca.DataBaseLibrary.Models.CustomModels;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -8,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace Horeca.DataBaseLibrary.Data
 {
-    public class DaLocationDataService
+    public class DaLocationDataService : IDaLocationDataService
     {
         private readonly ISqlDataAcces _dataAccess;
         public DaLocationDataService(ISqlDataAcces dataAccess)
