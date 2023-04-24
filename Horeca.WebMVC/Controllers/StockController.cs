@@ -24,7 +24,7 @@ namespace Horeca.WebMVC.Controllers
         [HttpPost]
         public async Task<IActionResult> AddStockAmount(StockModel newValue)
         {
-            if (ModelState.IsValid)
+            if (!ModelState.IsValid)
             {
                 newValue.Amount = newValue.Amount + newValue.UpdateValue;
                 await _daStockData.UpdateStockAmount(newValue);
@@ -67,6 +67,7 @@ namespace Horeca.WebMVC.Controllers
         [HttpPost]
         public async Task<IActionResult> EditStock(StockModel changeStock)
         {
+            ModelState.Remove("UpdateValue");
             if (ModelState.IsValid)
             {
                 await _daStockData.UpdateStockNameAndAmount(changeStock);
@@ -90,6 +91,18 @@ namespace Horeca.WebMVC.Controllers
         {
             await _daStockData.CreateStockItem(addNewStock);
             return RedirectToAction("ViewStockByIdLocation", "Location", new { id = addNewStock.Id_Location });
+        }
+        [HttpGet]
+        public async Task<IActionResult> DeleteStock(int id)
+        {
+            StockModel getStock = await _daStockData.GetStockById(id);
+            return View(getStock);
+        }
+        [HttpPost]
+        public async Task<IActionResult> DeleteStock(StockModel setInnactive)
+        {
+            await _daStockData.DeleteStockItem(setInnactive.Id);
+            return RedirectToAction("ViewStockByIdLocation", "Location", new { id = setInnactive.Id_Location });
         }
     }
 }

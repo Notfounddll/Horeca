@@ -12,12 +12,16 @@
             </div>
             <form asp-action="CreateEmployeeUser">
                 <div class="card-body">
+                    <DataAnnotationsValidator />
+                    <ValidationSummary />
                     <div>Name</div>
                     @Html.TextBoxFor(m => m.Name, new { @class = "form-control", @type = "text"})
                     <div>Email</div>
                     @Html.TextBoxFor(m => m.Email, new { @class = "form-control", @type = "text"})
+                    @Html.ValidationMessage("Email", "", new { @class = "text-danger" })
                     <div>Password</div>
                     @Html.TextBoxFor(m => m.Password, new { @class = "form-control", @type = "text"})
+                    @Html.ValidationMessage("Password", "", new { @class = "text-danger" })
                 </div>
                 <input type="submit" value="Add" class="btn btn-pill btn-primary btnAdd" />
             </form>

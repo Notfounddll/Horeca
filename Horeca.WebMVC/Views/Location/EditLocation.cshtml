@@ -8,17 +8,18 @@
     <div class="col-12 col-lg-12">
         <div class="card">
             <div class="card-header">
-                <h5 class="card-title mb-0">New Location</h5>
+                <h5 class="card-title mb-0">Edit location</h5>
             </div>
-            <form asp-action="CreateLocation">
+            <form asp-action="EditLocation">
+                <DataAnnotationsValidator />
+                <ValidationSummary />
                 <div class="card-body">
-                    <DataAnnotationsValidator />
-                    <ValidationSummary />
                     <div>New location name</div>
                     @Html.TextBoxFor(m => m.Location, new { @class = "form-control", @type = "text"})
                     @Html.ValidationMessage("Location", "", new { @class = "text-danger" })
+                    @Html.TextBoxFor(m => m.Id, new { @class = "form-control", @type = "number", @readonly = true, @style = "display: none;"})
                 </div>
-                <input type="submit" value="Add" class="btn btn-pill btn-primary btnAdd" />
+                <input type="submit" value="Edit" class="btn btn-danger" />
             </form>
         </div>
     </div>

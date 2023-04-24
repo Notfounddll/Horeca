@@ -12,12 +12,14 @@ namespace Horeca.DataBaseLibrary.Models
         public int Id { get; set; }
         public int Id_Location { get; set; }
         [Required]
+        [RegularExpression(@"^[A-Za-z\s]+$", ErrorMessage = "Use letters only please")]
         public string Name { get; set; }
         [Required]
+        [Range(1, int.MaxValue, ErrorMessage = "Please write a positive value")]
         public decimal Amount { get; set; }
         public int Active { get; set; }
         [Required]
-        [RegularExpression("^[a-zA-Z]*$", ErrorMessage = "Only numbers allowed.")]
+        [Range(1, int.MaxValue, ErrorMessage = "Please write a positive value")]
         public decimal UpdateValue { get; set; }
     }
 }

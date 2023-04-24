@@ -11,19 +11,18 @@
             <div class="card-header">
                 <h5 class="card-title mb-0">New Product</h5>
             </div>
-            <form asp-action="CreateProduct">
+            <form asp-action="CreateProductFromDepartment">
                 <div class="card-body">
                     <div>Product name</div>
+                    <DataAnnotationsValidator />
+                    <ValidationSummary />
                     <input class="form-control" type="text" id="Product" name="Product" />
+                    @Html.ValidationMessage("Product", "", new { @class = "text-danger" })
                     <div>Price</div>
-                    <input class="form-control" type="text" id="Price" name="Price" />
-                    <div>Select Department</div>
-                    <select class="form-control" id="Id_Department" name="Id_Department">
-                        @foreach (var item in Model.DepartmentWithLocation)
-                        {
-                            <option value="@item.Id_Department">@item.Location + @item.Department</option>
-                        }
-                    </select>
+                    <input class="form-control" type="number" id="Price" name="Price" />
+                    @Html.ValidationMessage("Price", "", new { @class = "text-danger" })
+
+                    <input class="form-control" type="hidden" id="Id_Department" name="Id_Department" readonly value="@Model.Department.Id" />
                 </div>
                 <input type="submit" value="Add" class="btn btn-pill btn-primary btnAdd" />
             </form>

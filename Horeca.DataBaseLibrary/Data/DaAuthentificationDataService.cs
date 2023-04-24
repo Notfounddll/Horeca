@@ -18,7 +18,6 @@ namespace Horeca.DataBaseLibrary.Data
             _dataAccess = dataAccess;
         }
 
-
         public async Task<AuthentificationModel> SelectAccount(AuthentificationModel selectAccount)
         {
             string sql = $"select * from [HorecaApp].[dbo].[Authentification] " +

@@ -16,12 +16,12 @@
                 <div class="card-body">
                     @Html.TextBoxFor(m => m.Name, new { @class = "form-control", @type = "text", @readonly = true})
                     <div>Current Amount</div>
-                    @Html.TextBoxFor(m => m.Amount, new { @class = "form-control", @type = "text", @readonly = true})
+                    @Html.TextBoxFor(m => m.Amount, new { @class = "form-control", @type = "number", @readonly = true})
                     <div>Withdraw Amount</div>
-                    @Html.TextBoxFor(m => m.UpdateValue, new { @class = "form-control", @type = "text" })
+                    @Html.TextBoxFor(m => m.UpdateValue, new { @class = "form-control", @type = "number" })
                     @Html.ValidationMessage("UpdateValue", "", new { @class = "text-danger" })
-                    @Html.TextBoxFor(m => m.Id, new { @class = "form-control", @type = "text", @readonly = true, @style = "display: none;"})
-                    @Html.TextBoxFor(m => m.Id_Location, new { @class = "form-control", @type = "text", @readonly = true, @style = "display: none;"})  
+                    @Html.TextBoxFor(m => m.Id, new { @class = "form-control", @type = "number", @readonly = true, @style = "display: none;"})
+                    @Html.TextBoxFor(m => m.Id_Location, new { @class = "form-control", @type = "number", @readonly = true, @style = "display: none;"})  
                 </div>
                 <input type="submit" value="Edit" class="btn btn-danger" />
             </form>

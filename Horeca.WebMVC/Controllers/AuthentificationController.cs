@@ -5,6 +5,7 @@ using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Mvc;
 using System.Security.Claims;
+using Microsoft.AspNetCore.Http;
 
 namespace Horeca.WebMVC.Controllers
 {
@@ -35,15 +36,22 @@ namespace Horeca.WebMVC.Controllers
             }
             else
             {
-                ClaimsIdentity identity = null;
-                identity = new ClaimsIdentity(new[] {
+                if (ModelState.IsValid)
+                {
+                    ClaimsIdentity identity = null;
+                    identity = new ClaimsIdentity(new[] {
                 new Claim(ClaimTypes.Name, user.Email),
                 new Claim(ClaimTypes.Role, user.NameAcces)
                 }, CookieAuthenticationDefaults.AuthenticationScheme);
-                var principal = new ClaimsPrincipal(identity);
-                var login = HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, principal);
+                    var principal = new ClaimsPrincipal(identity);
+                    var login = HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, principal);
 
-                return RedirectToAction("Index", "Home");
+                    return RedirectToAction("Index", "Home");
+                }
+                else
+                {
+                    return View("Login");
+                }
             }
         }
         [HttpGet]
@@ -54,8 +62,15 @@ namespace Horeca.WebMVC.Controllers
         [HttpPost]
         public async Task<IActionResult> Register(AuthentificationModel newUser)
         {
-            await _authentificationData.RegisterAccount(newUser);
-            return RedirectToAction("Index", "Home");
+            if (ModelState.IsValid)
+            {
+                await _authentificationData.RegisterAccount(newUser);
+                return RedirectToAction("Index", "Home");
+            }
+            else
+            {
+                return View(newUser);
+            }
         }
         public async Task<IActionResult> ViewUsers()
         {
@@ -70,8 +85,15 @@ namespace Horeca.WebMVC.Controllers
         [HttpPost]
         public async Task<IActionResult> CreateEmployeeUser(AuthentificationModel employeeUser)
         {
-            await _authentificationData.InsertAccount(employeeUser);
-            return RedirectToAction("ViewUsers");
+            if (ModelState.IsValid)
+            {
+                await _authentificationData.InsertAccount(employeeUser);
+                return RedirectToAction("ViewUsers");
+            }
+            else
+            {
+                return View(employeeUser);
+            }
         }
         [HttpGet]
         public async Task<IActionResult> DeleteEmployee(int id)
@@ -86,16 +108,10 @@ namespace Horeca.WebMVC.Controllers
             return RedirectToAction("ViewUsers");
         }
 
-        [HttpGet]
-        public async Task<IActionResult> Logout(AuthentificationModel model)
-        {
-            await _authentificationData.SelectAccount(model);
-            return View();
-        }
-        [HttpPost]
+       
         public async Task<IActionResult> Logout()
         {
-            await HttpContext.SignOutAsync();
+            await HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
             return RedirectToAction("Login");
         }
     }

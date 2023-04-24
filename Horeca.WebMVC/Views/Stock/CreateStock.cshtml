@@ -12,6 +12,8 @@
                 <h5 class="card-title mb-0">New stock item</h5>
             </div>
             <form asp-action="CreateStock">
+                <DataAnnotationsValidator />
+                <ValidationSummary />
                 <div class="card-body">
                     <div>Item name</div>
                     <input class="form-control" type="text" id="Name" name="Name" />

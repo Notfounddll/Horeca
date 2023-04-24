@@ -33,6 +33,7 @@
                                 <a class="btn btn-pill btn-primary btnAdd" asp-controller="Stock" asp-action="AddStockAmount" asp-route-id="@item.Id">Add Stock</a>
                                 <a class="btn btn-pill btn-primary btnTableWith" asp-controller="Stock" asp-action="WithdrawStockAmount" asp-route-id="@item.Id">Withdraw Stock</a>
                                 <a class="btn btn-pill btn-danger" asp-controller="Stock" asp-action="EditStock" asp-route-id="@item.Id">Edit</a>
+                                <a class="btn btn-pill btn-danger" asp-controller="Stock" asp-action="DeleteStock" asp-route-id="@item.Id">Delete</a>
                             </td>
                         </tr>
                     }

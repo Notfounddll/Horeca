@@ -33,8 +33,15 @@ namespace Horeca.WebMVC.Controllers
         [HttpPost]
         public async Task<IActionResult> CreateLocation(LocationModel newLocation)
         {
-            await _daLocationData.CreateLocation(newLocation);
-            return RedirectToAction("DisplayLocations");
+            if (ModelState.IsValid)
+            {
+                await _daLocationData.CreateLocation(newLocation);
+                return RedirectToAction("DisplayLocations");
+            }
+            else
+            {
+                return View(newLocation);
+            }
         }
         [HttpGet]
         public async Task<IActionResult> DeleteLocation(int id)
@@ -51,6 +58,25 @@ namespace Horeca.WebMVC.Controllers
         {
             await _daLocationData.DeleteLocation(setInactive.Id);
             return RedirectToAction("DisplayLocations");
+        }
+        [HttpGet]
+        public async Task<IActionResult> EditLocation(int id)
+        {
+            LocationModel getLocation = await _daLocationData.GetLocationById(id);
+            return View(getLocation);
+        }
+        [HttpPost]
+        public async Task<IActionResult> EditLocation(LocationModel editLocation)
+        {
+            if (ModelState.IsValid)
+            {
+                await _daLocationData.UpdateLocation(editLocation);
+                return RedirectToAction("DisplayLocations");
+            }
+            else
+            {
+                return View(editLocation);
+            }
         }
     }
 }

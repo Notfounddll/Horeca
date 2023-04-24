@@ -1,0 +1,36 @@
+﻿@using Horeca.DataBaseLibrary.Models
+@model dynamic
+@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+}
+<div class="row">
+    <div class="col-12 col-lg-12">
+        <div class="card">
+            <div class="card-header">
+                <h5 class="card-title mb-0">New Product</h5>
+            </div>
+            <form asp-action="CreateProduct">
+                <div class="card-body">
+                    <DataAnnotationsValidator />
+                    <ValidationSummary />
+                    <div>Product name</div>
+                    <input class="form-control" type="text" id="Product" name="Product" />
+                    @Html.ValidationMessage("Product", "", new { @class = "text-danger" })
+                    <div>Price</div>
+                    <input class="form-control" type="number" id="Price" name="Price" />
+                    @Html.ValidationMessage("Price", "", new { @class = "text-danger" })
+                    <div>Select Department</div>
+                    <select class="form-control" id="Id_Department" name="Id_Department">
+                        @foreach (var item in Model.DepartmentWithLocation)
+                        {
+                            <option value="@item.Id_Department">@item.Location + @item.Department</option>
+                        }
+                    </select>
+                </div>
+                <input type="submit" value="Add" class="btn btn-pill btn-primary btnAdd" />
+            </form>
+        </div>
+    </div>
+</div>

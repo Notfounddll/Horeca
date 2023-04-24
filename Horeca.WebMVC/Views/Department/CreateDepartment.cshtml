@@ -13,8 +13,11 @@
             </div>
             <form asp-action="CreateDepartment">
                 <div class="card-body">
+                    <DataAnnotationsValidator />
+                    <ValidationSummary />
                     <div>Department name</div>
                     <input class="form-control" type="text" id="Department" name="Department" />
+                    @Html.ValidationMessage("Department", "", new { @class = "text-danger" })
                     <div>Select location</div>
                     <select class="form-control" id="Id_Location" name="Id_Location">
                         @foreach (var item in Model.Location)

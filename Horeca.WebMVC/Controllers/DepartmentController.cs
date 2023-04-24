@@ -40,9 +40,18 @@ namespace Horeca.WebMVC.Controllers
         [HttpPost]
         public async Task<IActionResult> CreateDepartment(DepartmentModel newDepartment)
         {
-            await _daDepartmentData.CreateDepartment(newDepartment);
-            return RedirectToAction("ViewDepartmentByIdLocation", new { id = newDepartment.Id_Location });
+            ModelState.Remove("Location");
+            if (ModelState.IsValid)
+            {
+                await _daDepartmentData.CreateDepartment(newDepartment);
+                return RedirectToAction("ViewDepartmentByIdLocation", new { id = newDepartment.Id_Location });
+            }
+            else
+            {
+                return View(newDepartment);
+            }
         }
+
         [HttpGet]
         public async Task<IActionResult> DeleteDepartment(int id)
         {
@@ -55,33 +64,27 @@ namespace Horeca.WebMVC.Controllers
             await _daDepartmentData.DeleteDepartment(setInactive.Id);
             return RedirectToAction("ViewDepartmentByIdLocation", new { id = setInactive.Id });
         }
+        
+        
+        
         [HttpGet]
-        public async Task<IActionResult> CreateProduct()
+        public async Task<IActionResult> EditDepartment (int id)
         {
-            dynamic newModel = new ExpandoObject();
-            newModel.DepartmentWithLocation = await _daDepartmentData.GetAllDepartmentsWithLocation();
-            newModel.Product = new ProductModel();
-            return View(newModel);
+            DepartmentModel getDepartment = await _daDepartmentData.GetDepartmentById(id);
+            return View(getDepartment);
         }
         [HttpPost]
-        public async Task<IActionResult> CreateProduct(ProductModel newProduct)
+        public async Task<IActionResult> EditDepartment (DepartmentModel changeDepartment)
         {
-            await _daProductData.CreateProduct(newProduct);
-            return RedirectToAction("CreateProduct");
-        }
-        [HttpGet]
-        public async Task<IActionResult> CreateProductFromDepartment(int id)
-        {
-            dynamic newModel = new ExpandoObject();
-            newModel.Department = await _daDepartmentData.GetDepartmentById(id);
-            newModel.Product = new ProductModel();
-            return View(newModel);
-        }
-        [HttpPost]
-        public async Task<IActionResult> CreateProductFromDepartment(ProductModel addProduct)
-        {
-            await _daProductData.CreateProduct(addProduct);
-            return RedirectToAction("ViewDepartmentByIdLocation", new { id = addProduct.Id_Department });
+            if (ModelState.IsValid)
+            {
+                await _daDepartmentData.UpdateDepartment(changeDepartment);
+                return RedirectToAction("ViewDepartmentByIdLocation", new { id = changeDepartment.Id_Location });
+            }
+            else
+            {
+                return View(changeDepartment);
+            }
         }
     }
 }
