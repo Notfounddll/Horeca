@@ -1,11 +1,11 @@
-﻿@*@using System.Security.Claims
+﻿@using System.Security.Claims
 @using Microsoft.AspNetCore.Http
 
 @inject IHttpContextAccessor httpContextAccessor
 @{
     string Name = httpContextAccessor.HttpContext.User.FindFirst(ClaimTypes.Name).Value;
     string Rights = httpContextAccessor.HttpContext.User.FindFirst(ClaimTypes.Role).Value;
-}*@
+}
 
 <!DOCTYPE html>
 <html lang="en">
@@ -34,34 +34,43 @@
             <div class="sidebar-content">
                 <div class="sidebar-user">
                     <div class="font-weight-bold">Welcome,</div>
-                    @*<div class="font-weight-bold">@Name </div>*@
+                    <div class="font-weight-bold">@Name</div>
 
                 </div>
 
                 <ul class="sidebar-nav">
-                    @*@if (Rights == "Level2")
-                    {*@
-                    <li class="sidebar-header">
-                        Administration
-                    </li>
-                    <li class="sidebar-item">
-                        <a class="nav-link text-dark" asp-controller="Location" asp-action="DisplayLocations"><i class="align-middle mr-2 fas fa-fw fa-folder"></i>Stocks</a>
-                        <a class="nav-link text-dark" asp-controller="Product" asp-action="CreateProduct"><i class="align-middle mr-2 fas fa-fw fa-folder"></i>Add Product</a>
+                    @if (Rights == "Level2")
+                    {
+                        <li class="sidebar-header">
+                            Administration
+                        </li>
+                        <li class="sidebar-item">
+                            <a class="nav-link text-dark" asp-controller="Location" asp-action="DisplayLocations"><i class="align-middle mr-2 fas fa-fw fa-database"></i>Stocks</a>
+                            <a class="nav-link text-dark" asp-controller="Product" asp-action="CreateProduct"><i class="align-middle mr-2 fas fa-fw fa-plus"></i>Add Product</a>
 
-                    </li>
-                    @*}*@
+                        </li>
 
-                    <li class="sidebar-header">
-                        Create Employee Interface
-                    </li>
-                    <li class="sidebar-item">
-                        <a class="nav-link text-dark" asp-controller="Department" asp-action="DisplayLocationForDepartments"><i class="align-middle mr-2 fas fa-fw fa-folder"></i>Departments</a>
-                        <a class="nav-link text-dark" asp-controller="Authentification" asp-action="ViewUsers"><i class="align-middle mr-2 fas fa-fw fa-folder"></i>Create Employee User</a>
-                        <a class="nav-link text-dark" asp-controller="Recipe" asp-action="ViewAllProducts"><i class="align-middle mr-2 fas fa-fw fa-folder"></i>Create Recipe</a>
-                    </li>
-                    <li class="sidebar-header">
-                        Reports
-                    </li>
+
+                        <li class="sidebar-header">
+                            Create Employee Interface
+                        </li>
+                        <li class="sidebar-item">
+                            <a class="nav-link text-dark" asp-controller="Department" asp-action="DisplayLocationForDepartments"><i class="align-middle mr-2 fas fa-fw fa-cart-plus"></i>Departments</a>
+                            <a class="nav-link text-dark" asp-controller="Authentification" asp-action="ViewUsers"><i class="align-middle mr-2 fas fa-fw fa-user-plus"></i>Create Employee User</a>
+                            <a class="nav-link text-dark" asp-controller="Recipe" asp-action="ViewAllProducts"><i class="align-middle mr-2 fas fa-fw fa-receipt"></i>Create Recipe</a>
+                        </li>
+
+                        <li class="sidebar-header">
+                            Reports
+                        </li>
+                    }
+                    @if(Rights == "Level1")
+                    {
+                        <li class="sidebar-item">
+                            <a class="nav-link text-dark" asp-controller="Location" asp-action="SelectLocationToSell"><i class="align-middle mr-2 fas fa-fw fa-database"></i>Location</a>
+                        </li>
+                    }
+
 
                 </ul>
                 <div>
@@ -82,7 +91,6 @@
                 </div>
             </main>
             <footer class="footer">
-                
             </footer>
         </div>
 

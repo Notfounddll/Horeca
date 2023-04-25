@@ -3,9 +3,12 @@ using Horeca.DataBaseLibrary.Models.CustomModels;
 using Horeca.DataBaseLibrary.Models;
 using Microsoft.AspNetCore.Mvc;
 using System.Dynamic;
+using Microsoft.AspNetCore.Authorization;
+using System.Data;
 
 namespace Horeca.WebMVC.Controllers
 {
+    //[Authorize(Roles = "Level2")]
     public class ProductController : Controller
     {
         private readonly IDaProductDataService _daProductData;
@@ -79,6 +82,11 @@ namespace Horeca.WebMVC.Controllers
         {
             await _daProductData.DeleteProduct(setInnactive.Id);
             return RedirectToAction("ViewDepartmentByIdLocation", "Department", new { id = setInnactive.Id_Department });
+        }
+        public async Task<IActionResult> SelectProductToSell(int id)
+        {
+            List<DepartmentToProductModel> products = await _daDepartmentData.GetProductByIdDepartment(id);
+            return View(products);
         }
     }
 }

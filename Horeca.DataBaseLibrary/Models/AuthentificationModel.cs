@@ -19,7 +19,7 @@ namespace Horeca.DataBaseLibrary.Models
         [EmailAddress(ErrorMessage = "Invalid Email Address")]
         public string Email { get; set; }
         [Required(ErrorMessage = "Password is required")]
-        [StringLength(255, ErrorMessage = "Must be between 5 and 255 characters", MinimumLength = 5)]
+        [StringLength(255, ErrorMessage = "Must be between 4 and 255 characters", MinimumLength = 4)]
         [DataType(DataType.Password)]
         public string Password { get; set; }
         public int Active { get; set; }

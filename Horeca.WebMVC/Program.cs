@@ -20,6 +20,7 @@ namespace Horeca.WebMVC
             builder.Services.AddTransient<IDaDepartmentDataService, DaDepartmentDataService>();
             builder.Services.AddTransient<IDaAuthentificationDataService, DaAuthentificationDataService>();
             builder.Services.AddTransient<IDaRecipeDataService, DaRecipeDataService>();
+            builder.Services.AddTransient<IDaHistoryDataService, DaHistoryDataService>();
             builder.Services.AddHttpContextAccessor();
             builder.Services.Configure<CookiePolicyOptions>(options =>
             {
@@ -50,7 +51,7 @@ namespace Horeca.WebMVC
 
             app.MapControllerRoute(
                 name: "default",
-                pattern: "{controller=Home}/{action=Index}/{id?}");
+                pattern: "{controller=Authentification}/{action=Login}/{id?}");
 
             app.Run();
         }

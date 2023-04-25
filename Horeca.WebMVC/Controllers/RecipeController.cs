@@ -1,9 +1,12 @@
 ﻿using Horeca.DataBaseLibrary.Data.Interfaces;
 using Horeca.DataBaseLibrary.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using System.Data;
 
 namespace Horeca.WebMVC.Controllers
 {
+    //[Authorize(Roles = "Level2")]
     public class RecipeController : Controller
     {
         private readonly IDaRecipeDataService _recipeDataService;

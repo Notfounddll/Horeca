@@ -1,10 +1,13 @@
 ﻿using Horeca.DataBaseLibrary.Data.Interfaces;
 using Horeca.DataBaseLibrary.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using System.Data;
 using System.Dynamic;
 
 namespace Horeca.WebMVC.Controllers
 {
+    //[Authorize(Roles = "Level2")]
     public class StockController : Controller
     {
         private readonly IDaStockDataService _daStockData;

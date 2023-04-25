@@ -28,6 +28,7 @@ namespace Horeca.WebMVC.Controllers
         [HttpPost]
         public async Task<IActionResult> Login(AccesToAuthentificationModel selectData)
         {
+            
             var user = await _authentificationData.SelectDataAcces(selectData);
             if (user == null)
             {
@@ -36,8 +37,7 @@ namespace Horeca.WebMVC.Controllers
             }
             else
             {
-                if (ModelState.IsValid)
-                {
+               
                     ClaimsIdentity identity = null;
                     identity = new ClaimsIdentity(new[] {
                 new Claim(ClaimTypes.Name, user.Email),
@@ -47,11 +47,8 @@ namespace Horeca.WebMVC.Controllers
                     var login = HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, principal);
 
                     return RedirectToAction("Index", "Home");
-                }
-                else
-                {
-                    return View("Login");
-                }
+                
+               
             }
         }
         [HttpGet]

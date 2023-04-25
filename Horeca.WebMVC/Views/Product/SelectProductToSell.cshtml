@@ -1,0 +1,41 @@
+﻿@model IEnumerable<Horeca.DataBaseLibrary.Models.CustomModels.DepartmentToProductModel>
+@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+}
+<div class="row">
+    <div class="col-12 col-xl-12">
+        <div class="card">
+            <div class="card-header">
+                <h5 class="card-title">Table of Products</h5>
+
+            </div>
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th style="width:40%;">Name</th>
+                        <th style="width:25%">Price</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model)
+                    {
+                        <tr>
+                            <td>
+                                @item.Product
+                            </td>
+                            <td>
+                                @item.Price
+                            </td>
+                            <td>
+                                <a class="btn btn-pill btn-danger" asp-controller="History" asp-action="InsertSell" asp-route-id="@item.Id">Sell</a>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>

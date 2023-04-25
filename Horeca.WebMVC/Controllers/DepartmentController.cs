@@ -3,6 +3,7 @@ using Horeca.DataBaseLibrary.Models.CustomModels;
 using Horeca.DataBaseLibrary.Models;
 using Microsoft.AspNetCore.Mvc;
 using System.Dynamic;
+using Microsoft.AspNetCore.Authorization;
 
 namespace Horeca.WebMVC.Controllers
 {
@@ -85,6 +86,11 @@ namespace Horeca.WebMVC.Controllers
             {
                 return View(changeDepartment);
             }
+        }
+        public async Task<IActionResult> SelectDepartmentToSellFrom(int id)
+        {
+            List<LocationToDepartmentModel> departments = await _daLocationData.GetDepartmentByIdLocation(id);
+            return View(departments);
         }
     }
 }

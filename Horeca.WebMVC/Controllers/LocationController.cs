@@ -2,10 +2,11 @@
 using Horeca.DataBaseLibrary.Models.CustomModels;
 using Horeca.DataBaseLibrary.Models;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Authorization;
 
 namespace Horeca.WebMVC.Controllers
 {
-    //[Authorize(Roles = "Level1")]
+    //[Authorize(Roles = "Level2")]
     public class LocationController : Controller
     {
         private readonly IDaLocationDataService _daLocationData;
@@ -77,6 +78,13 @@ namespace Horeca.WebMVC.Controllers
             {
                 return View(editLocation);
             }
+        }
+
+
+        public async Task<IActionResult> SelectLocationToSell()
+        {
+            List<LocationModel> locations = await _daLocationData.GetAllLocations();
+            return View(locations);
         }
     }
 }
